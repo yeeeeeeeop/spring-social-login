@@ -3,8 +3,6 @@ package me.yeop.global.config.jwt;
 import io.jsonwebtoken.Jwts;
 import me.yeop.domain.user.dao.UserRepository;
 import me.yeop.domain.user.domain.User;
-import me.yeop.global.jwt.JwtProperties;
-import me.yeop.global.jwt.JwtTokenProvider;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

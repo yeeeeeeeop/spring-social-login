@@ -1,4 +1,4 @@
-package me.yeop.global.jwt;
+package me.yeop.global.config.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Header;

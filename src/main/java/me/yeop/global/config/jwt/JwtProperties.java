@@ -1,4 +1,4 @@
-package me.yeop.global.jwt;
+package me.yeop.global.config.jwt;
 
 import lombok.Getter;
 import lombok.Setter;

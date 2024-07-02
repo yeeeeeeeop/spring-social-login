@@ -23,4 +23,9 @@ public class UserService {
 
         return UserConverter.toSignUpResponseDTOFromEntity(newUser);
     }
+
+    public User findById(Long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 유저입니다: " + userId));
+    }
 }
