@@ -19,7 +19,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @RequiredArgsConstructor
 public class WebSecurityConfig {
 
-    private final UserDetailsService userDetailsService;
+    private final UserDetailsService userService;
 
     /**
      * 특정 HTTP 요청에 대한 웹 기반 보안 구성
@@ -34,8 +34,9 @@ public class WebSecurityConfig {
                 .authorizeRequests(auth -> auth
                         .requestMatchers( // 특정 요청과 일치하는 url에 대한 액세스를 설정한다.
                                 new AntPathRequestMatcher("/login"), // URL 패턴 매칭을 수행하는 데 사용되는 클래스
-                                new AntPathRequestMatcher("/signup"),
-                                new AntPathRequestMatcher("/user")
+                                new AntPathRequestMatcher("/auth/signup"),
+                                new AntPathRequestMatcher("/user"),
+                                new AntPathRequestMatcher("/health")
                         ).permitAll() // 해당 url로 요청이 오면 인증/인가 없이도 접근할 수 있다.
                         .anyRequest() // 위에서 설정한 url 이외의 요청에 대해서 설정
                         .authenticated()) // 별도의 인가는 필요하지 않지만 인증이 성공된 상태여야 접근 가능.
@@ -61,7 +62,7 @@ public class WebSecurityConfig {
             BCryptPasswordEncoder bCryptPasswordEncoder,
             UserDetailsService userDetailsService) throws Exception {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userDetailsService); // 사용자 정보를 가져올 서비스를 설정한다. 반드시 UserDetailsService를 상속한 클래스여야 한다.
+        authProvider.setUserDetailsService(userService); // 사용자 정보를 가져올 서비스를 설정한다. 반드시 UserDetailsService를 상속한 클래스여야 한다.
         authProvider.setPasswordEncoder(bCryptPasswordEncoder); // 비밀번호를 암호화하기 위한 인코더를 설정한다.
         return new ProviderManager(authProvider);
     }
