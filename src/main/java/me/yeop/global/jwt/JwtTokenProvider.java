@@ -29,7 +29,7 @@ public class JwtTokenProvider {
      * @param expiredAt 만료시간
      * @return JWT 토큰
      */
-    private String generateUserToken(User user, Duration expiredAt) {
+    public String generateUserToken(User user, Duration expiredAt) {
         Date now = new Date();
         return createUserToken(new Date(now.getTime() + expiredAt.toMillis()), user);
     }
