@@ -23,6 +23,7 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign' // open feign(외부 http 요청)
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa' // JPA
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client' // OAuth2를 사용하기 위한 스타터
 
     // DB
     runtimeOnly("com.mysql:mysql-connector-j")

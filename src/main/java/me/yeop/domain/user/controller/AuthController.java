@@ -26,7 +26,7 @@ public class AuthController {
                 .body(response);
     }
 
-    @PostMapping("/access-token")
+    @PostMapping("/token")
     public ResponseEntity<CreateAccessTokenResponseDTO> createNewAccessToken(
             @RequestBody CreateAccessTokenRequestDTO request
     ) {

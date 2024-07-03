@@ -14,9 +14,10 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public SignUpResponseDTO signup(SignUpRequestDTO request) {
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+
         request.setPassword(bCryptPasswordEncoder.encode(request.getPassword()));
         User newUser = UserConverter.toEntityFromSignUpRequest(request);
         userRepository.save(newUser);
@@ -27,5 +28,10 @@ public class UserService {
     public User findById(Long userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 유저입니다: " + userId));
+    }
+
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 이메일입니다: " + email));
     }
 }

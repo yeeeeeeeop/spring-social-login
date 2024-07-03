@@ -16,7 +16,8 @@ import java.util.List;
 @Getter
 public class User extends BaseEntity implements UserDetails {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false)
     private Long id;
 
@@ -26,15 +27,20 @@ public class User extends BaseEntity implements UserDetails {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "nickname", unique = true)
+    private String nickname;
+
     @Builder
-    public User(String email, String password, String auth) {
+    public User(String email, String password, String nickname) {
         this.email = email;
         this.password = password;
+        this.nickname = nickname;
     }
 
     /**
      * 사용자가 가지고 있는 권한의 목록을 반환한다.
      * 현재 예제 코드에서는 사용자 이외의 권한이 없기 때문에 user 권한만 담아 반환한다.
+     *
      * @return 유저 권한 {Collection<? extends GrantedAuthority>}
      */
     @Override
@@ -46,6 +52,7 @@ public class User extends BaseEntity implements UserDetails {
      * 사용자를 식별할 수 있는 사용자 이름을 반환한다.
      * 이때 사용되는 사용자 이름은 반드시 고유해야 한다.
      * 현재 예제 코드는 유니크 속성이 적용된 이메일을 반환한다.
+     *
      * @return 이메일 {String}
      */
     @Override
@@ -56,6 +63,7 @@ public class User extends BaseEntity implements UserDetails {
     /**
      * 사용자의 비밀번호를 반환한다.
      * 이때 저장되어 있는 비밀번호는 암호화해서 저장해야한다.
+     *
      * @return 비밀번호 {String}
      */
     @Override // 사용자의 패스워드 반환
@@ -66,6 +74,7 @@ public class User extends BaseEntity implements UserDetails {
     /**
      * 계정이 만료되었는지 확인하는 메서드이다.
      * 만약 만료되지 않은 때는 true를 반환한다.
+     *
      * @return 계정 만료 여부 {boolean}
      */
     @Override
@@ -77,6 +86,7 @@ public class User extends BaseEntity implements UserDetails {
     /**
      * 계정이 잠금되었는지 확인하는 메서드이다.
      * 만약 잠금되지 않은 때는 true를 반환한다.
+     *
      * @return 계정 잠금 여부 {true}
      */
     @Override
@@ -88,6 +98,7 @@ public class User extends BaseEntity implements UserDetails {
     /**
      * 비밀번호가 만료되었는지 확인하는 메서드이다.
      * 만약 만료되지 않은 때는 true를 반환한다.
+     *
      * @return 비밀번호 만료 여부 {boolean}
      */
     @Override
@@ -99,11 +110,24 @@ public class User extends BaseEntity implements UserDetails {
     /**
      * 계정이 사용 가능한지 확인하는 메서드이다.
      * 만약 사용 가능하다면 true를 반환한다.
+     *
      * @return 계정 사용 가능 여부 {boolean}
      */
     @Override
     public boolean isEnabled() {
         // 계정이 사용 가능한지 확인하는 로직
         return true; // true -> 사용 가능
+    }
+
+    /**
+     * 사용자 이름 변경
+     *
+     * @param nickname 변경하고자 하는 nickname
+     * @return 변경된 User
+     */
+    public User update(String nickname) {
+        this.nickname = nickname;
+
+        return this;
     }
 }

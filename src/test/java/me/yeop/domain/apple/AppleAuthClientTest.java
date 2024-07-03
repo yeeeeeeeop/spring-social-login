@@ -1,4 +1,4 @@
-package me.yeop.apple;
+package me.yeop.domain.apple;
 
 import lombok.extern.slf4j.Slf4j;
 import me.yeop.domain.apple.AppleIdTokenPayload;
